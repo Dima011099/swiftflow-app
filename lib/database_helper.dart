@@ -48,6 +48,11 @@ class DatabaseHelper {
     return await db.query('tasks');
   }
 
+  Future<List<Map<String, dynamic>>> readAllProjects() async {
+    final db = await instance.database;
+    return await db.query('projects');
+  }
+
    Future<int> createProject (String title) async {
      final db = await instance.database;
      return await db.insert('projects', {'name': title});

@@ -36,7 +36,7 @@ class SwipeCard extends StatelessWidget {
           if (newStatus != null) {
             onMove(task.id, newStatus);
           }
-          return false; // ⬅️ карточка НЕ исчезает, как у тебя
+          return false;
         },
 
         child: card,

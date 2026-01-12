@@ -1,0 +1,8 @@
+*.c linguist-vendored
+*.cc linguist-vendored
+*.cpp linguist-vendored
+*.h linguist-vendored
+*.js linguist-vendored
+/windows/** linguist-vendored
+/linux/** linguist-vendored
+/macos/** linguist-vendored

@@ -26,7 +26,51 @@ class TaskColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DragTarget<int>(
+    return 
+    Column(
+      children: [
+if(!isMobileLayout(context)) Container(
+  width: double.infinity,
+  padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        children: [
+          Container(
+            width: 4,
+            height: 16,
+            decoration: BoxDecoration(
+              color: Colors.orangeAccent, // Цвет зависит от статуса
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            status.name.toUpperCase(),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: Colors.black87,
+            ),
+          ),
+          const SizedBox(width: 8),
+          // Счетчик задач
+          Text(
+            '${tasks.length}',
+            style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+          ),
+        ],
+      ),
+      const Divider(height: 24, thickness: 1), // Разделитель под заголовком
+    ],
+  ),
+)
+
+,
+      Expanded(
+        child:
+    DragTarget<int>(
       onAccept: (id) => onMove(id, status),
       builder: (_, candidate, __) {
         return Container(
@@ -43,6 +87,7 @@ class TaskColumn extends StatelessWidget {
           ),
         );
       },
-    );
+    ),),
+    ]);
   }
 }

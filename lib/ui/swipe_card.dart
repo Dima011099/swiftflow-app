@@ -64,20 +64,20 @@ class SwipeCard extends StatelessWidget {
 
   Widget _leftBackground() {
     if (task.status == TaskStatus.todo) {
-      return _swipeBg(Icons.play_arrow, "В РАБОТУ", Colors.orange, Alignment.centerLeft);
+      return _swipeBg(Icons.play_arrow, "IN PROGRESS", Colors.orange, Alignment.centerLeft);
     }
     if (task.status == TaskStatus.inProgress) {
-      return _swipeBg(Icons.check, "ГОТОВО", Colors.green, Alignment.centerLeft);
+      return _swipeBg(Icons.check, "DONE", Colors.green, Alignment.centerLeft);
     }
     return const SizedBox();
   }
 
   Widget _rightBackground() {
     if (task.status == TaskStatus.inProgress) {
-      return _swipeBg(Icons.assignment_return, "В ЗАДАЧИ", Colors.grey, Alignment.centerRight);
+      return _swipeBg(Icons.assignment_return, "TO DO", Colors.grey, Alignment.centerRight);
     }
     if (task.status == TaskStatus.done) {
-      return _swipeBg(Icons.replay, "В РАБОТУ", Colors.orange, Alignment.centerRight);
+      return _swipeBg(Icons.replay, "IN PROGRESS", Colors.orange, Alignment.centerRight);
     }
     return const SizedBox();
   }
@@ -92,7 +92,7 @@ class SwipeCard extends StatelessWidget {
       alignment: align,
       padding: const EdgeInsets.symmetric(horizontal: 24),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.15),
+        color: color.withAlpha(15),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Row(

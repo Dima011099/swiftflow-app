@@ -35,7 +35,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
 
   Widget _desktop() {
     return Scaffold(
-      appBar: AppBar(title: const Text('SwiftFlow Desktop'), backgroundColor: Colors.white,),
+      appBar: AppBar(title: const Text('Base Project'), backgroundColor: Colors.white,),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -61,15 +61,40 @@ class _ProjectScreenState extends State<ProjectScreen> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('SwiftFlow'),
+          toolbarHeight: 72,
+          leadingWidth: 72,
+          actionsPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          title: const Text('Base Project'),
           bottom: const TabBar(
             tabs: [
-              Tab(text: 'ЗАДАЧИ'),
-              Tab(text: 'В РАБОТЕ'),
-              Tab(text: 'ГОТОВО'),
+              Tab(text: 'TO DO'),
+              Tab(text: 'IN PROGRESS'),
+              Tab(text: 'DONE'),
             ],
           ),
           backgroundColor: Colors.white,
+                 actions: [
+    PopupMenuButton<String>(
+      icon: const Icon(Icons.filter_list), // Иконка фильтра
+      onSelected: (String result) {
+        // Логика фильтрации
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+        const PopupMenuItem<String>(
+          value: 'date',
+          child: Text('Date'),
+        ),
+        const PopupMenuItem<String>(
+          value: 'low',
+          child: Text('Low'),
+        ),
+         const PopupMenuItem<String>(
+          value: 'hight',
+          child: Text('Hight'),
+        ),
+      ],
+    ),
+  ],
         ),
         body: TabBarView(
           children: TaskStatus.values.map((status) {
@@ -89,7 +114,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
 
   Widget _fab() => FloatingActionButton(
           elevation: 2,
-          backgroundColor:  Colors.purpleAccent,
+          backgroundColor:  Colors.blue.shade500,
           shape: RoundedRectangleBorder(
             borderRadius:  BorderRadius.all(Radius.circular(16)),
           ),

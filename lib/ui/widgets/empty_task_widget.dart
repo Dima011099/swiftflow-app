@@ -18,7 +18,7 @@ class EmptyTasksWidget extends StatelessWidget {
               width: 72,
               height: 72,
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.08),
+                color: theme.colorScheme.primary.withAlpha(18),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -32,13 +32,34 @@ class EmptyTasksWidget extends StatelessWidget {
 
             // Заголовок
             Text(
-              'Нет задач',
+              'Задач пока нет',
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
+                fontSize: 18,
               ),
             ),
 
-            const SizedBox(height: 6),
+            const SizedBox(height: 10),
+
+          
+           Text('Добавтьте первую задачу, чтобы\n начать работу',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w400,
+                fontSize: 15,
+              ),
+              textAlign: TextAlign.center,
+            ),
+    
+
+             const SizedBox(height: 12),
+
+            Text('Нажмите + внизу справа',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w400,
+                fontSize: 15,
+                color: Colors.blue.shade800,
+              ),
+            ),
           ],
         ),
       ),

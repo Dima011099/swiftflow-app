@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swift_flow/controllers/task_controller.dart';
 import 'package:swift_flow/models/task.dart';
 import 'package:swift_flow/ui/project_screen.dart';
+import 'package:swift_flow/ui/widgets/empty_task_widget.dart';
 import 'package:swift_flow/ui/widgets/project_list.dart';
 
 import '../database_helper.dart';
@@ -29,7 +30,7 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Мои Проекты'), backgroundColor: Colors.white),
+      appBar: AppBar(title: const Text('Swift Flow - Проекты'), backgroundColor: Colors.white),
       body: AnimatedBuilder(
         animation: controller,
         builder: (context, constraints) {
@@ -45,7 +46,7 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
                 Expanded(
                   child: _selectedProject != null
                       ? ProjectScreen() //TaskView(project: _selectedProject!)
-                      : const Center(child: Text('Выберите проект слева')),
+                      : const Center(child: EmptyTasksWidget()),
                 ),
               ],
             );

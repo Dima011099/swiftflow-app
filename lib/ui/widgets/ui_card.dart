@@ -20,7 +20,7 @@ class TaskCardView extends StatelessWidget {
           bottom: BorderSide(color: Color(0xFFF0F0F0), width: 1),
         ),
       ),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -40,7 +40,7 @@ class TaskCardView extends StatelessWidget {
               _priority(task.priority),
               const Spacer(),
               IconButton(
-                icon: const Icon(Icons.delete, size: 22, color: Colors.black26),
+                icon: const Icon(Icons.delete, size: 20, color: Color.from(red: 0.3, blue: 0.1, green: 0.15, alpha: .5)),
                 onPressed: onDelete,
               ),
             ],
@@ -66,7 +66,7 @@ class TaskCardView extends StatelessWidget {
             children: [
               const Icon(Icons.calendar_today_outlined, size: 12, color: Colors.black45),
               const SizedBox(width: 4),
-              const Text("24 Янв", style: TextStyle(fontSize: 12, color: Colors.black45)),
+              const Text("24 Jan.", style: TextStyle(fontSize: 12, color: Colors.black45)),
               const SizedBox(width: 16),
               CircleAvatar(
                 radius: 9,
@@ -87,8 +87,8 @@ class TaskCardView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
         color: priority > 0
-            ? Colors.red.withOpacity(0.1)
-            : Colors.black.withOpacity(0.05),
+            ? Colors.red.shade300
+            : Colors.black12,
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(

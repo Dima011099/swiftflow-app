@@ -20,7 +20,6 @@ class TaskController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /**/
   Future<void> loadProjects() async {
     final data = await db.readAllProjects();
     _projects = data.map(Project.fromMap).toList();

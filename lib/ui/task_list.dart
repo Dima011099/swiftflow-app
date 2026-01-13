@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swift_flow/ui/task_card.dart';
+import 'package:swift_flow/ui/widgets/empty_task_widget.dart';
 import '../models/task.dart';
 import 'swipe_card.dart';
 
@@ -20,7 +21,7 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (tasks.isEmpty) {
-      return const Center(child: Text('Пусто'));
+      return const Center(child: EmptyTasksWidget());
     }
 
     return ListView.builder(

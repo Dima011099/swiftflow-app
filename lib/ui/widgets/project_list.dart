@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swift_flow/models/task.dart';
+import 'package:swift_flow/ui/widgets/base_project_tile.dart';
 
 
 class ProjectList extends StatelessWidget {
@@ -11,12 +12,12 @@ class ProjectList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.all(16),
       itemCount: projects.length,
-      itemBuilder: (context, index) => ListTile(
-        title: Text(projects[index].name),
-        trailing: const Icon(Icons.chevron_right),
+      itemBuilder: (context, index) => BaseProjectTile(
+        title: projects[index].name, 
         onTap: () => onProjectSelected(projects[index]),
-      ),
+        ),
     );
   }
 }

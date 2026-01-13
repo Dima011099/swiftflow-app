@@ -29,7 +29,7 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Мои Проекты')),
+      appBar: AppBar(title: const Text('Мои Проекты'), backgroundColor: Colors.white),
       body: AnimatedBuilder(
         animation: controller,
         builder: (context, constraints) {

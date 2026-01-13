@@ -88,7 +88,16 @@ class _ProjectScreenState extends State<ProjectScreen> {
   }
 
   Widget _fab() => FloatingActionButton(
-        child: const Icon(Icons.add),
+          elevation: 2,
+          backgroundColor:  Colors.purpleAccent,
+          shape: RoundedRectangleBorder(
+            borderRadius:  BorderRadius.all(Radius.circular(16)),
+          ),
+          child: const Icon(
+          color: Colors.white,
+          Icons.add_task_rounded,
+          size: 24,
+        ),
         onPressed: () => showDialog(
           context: context,
           builder: (_) => AlertDialog(

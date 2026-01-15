@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class BaseProjectTile extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
+  final VoidCallback? onDelete;
 
   const BaseProjectTile({
     super.key,
     required this.title,
     this.onTap,
+    this.onDelete,
   });
 
   @override
@@ -41,7 +43,7 @@ class BaseProjectTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
-                  Icons.folder_rounded,
+                  Icons.dashboard_customize_rounded,
                   color: theme.colorScheme.primary,
                 ),
               ),
@@ -54,10 +56,12 @@ class BaseProjectTile extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(
-                Icons.chevron_right_rounded,
+              IconButton(onPressed: onDelete,
+              icon: Icon(
+                Icons.delete_outline,
                 color: theme.iconTheme.color?.withOpacity(0.5),
-              ),
+                size: 20,
+              ),),
             ],
           ),
         ),

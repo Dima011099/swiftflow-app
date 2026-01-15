@@ -17,6 +17,8 @@ class AdaptiveMainScreen extends StatefulWidget {
 class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
   Project? _selectedProject;
 
+   final TextEditingController input = TextEditingController();
+
   late final TaskController controller;
 
   bool get isMobile => MediaQuery.of(context).size.width < 900;
@@ -30,7 +32,33 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Swift Flow - Проекты'), backgroundColor: Colors.white),
+      appBar: AppBar(
+        toolbarHeight: 72,
+        leadingWidth: 72,
+        actionsPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        title: const Text('Swift Flow - Projects'), 
+        backgroundColor: Colors.white,
+         actions: [
+    IconButton(
+    icon: const Icon(Icons.add), 
+    onPressed: () {
+      _addProject();
+    },
+  ),
+  IconButton(
+    icon: const Icon(Icons.person_sharp), 
+    onPressed: () {
+    },
+  ),
+   IconButton(
+    icon: const Icon(Icons.settings),
+    onPressed: () {
+    },
+  ),
+],
+      
+        ),
+      backgroundColor: Colors.white,
       body: AnimatedBuilder(
         animation: controller,
         builder: (context, constraints) {
@@ -40,24 +68,35 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
               children: [
                 SizedBox(
                   width: 300,
-                  child: ProjectList(onProjectSelected: (p) => setState(() => _selectedProject = p), projects: controller.projects,),
+                  child: ProjectList(onProjectSelected: (p) => setState(() => _selectedProject = p), controller: controller, 
+                  onProjectDeleted: (deletedId) {
+                    if (_selectedProject?.id == deletedId) {
+                      setState(() => _selectedProject = null);
+                    }
+                  },                
+                  ),
                 ),
                 const VerticalDivider(width: 1),
                 Expanded(
                   child: _selectedProject != null
-                      ? ProjectScreen() //TaskView(project: _selectedProject!)
+                      ? ProjectScreen(projectID: _selectedProject!.id,) //TaskView(project: _selectedProject!)
                       : const Center(child: EmptyTasksWidget()),
                 ),
               ],
             );
           } else {
             // МОБИЛЬНЫЕ: Список с переходом
-            return ProjectList(projects: controller.projects,
+            return ProjectList(controller: controller,
+            onProjectDeleted:  (deletedId) {
+                    if (_selectedProject?.id == deletedId) {
+                      setState(() => _selectedProject = null);
+                    }
+                  },                
               onProjectSelected: (p) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => 
-                  ProjectScreen()
+                  ProjectScreen(projectID: p.id,)
                   )  
                 );
               },
@@ -66,5 +105,26 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
         },
       ),
     );
+  }
+
+  Future _addProject(){
+    return showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: const Text('Create a new project'),
+            content: TextField(controller: input, autofocus: true),
+            actions: [
+              TextButton(onPressed: Navigator.of(context).pop, child: const Text('Отмена')),
+              ElevatedButton(
+                onPressed: () {
+                  controller.addProject(input.text);
+                  input.clear();
+                  Navigator.pop(context);
+                },
+                child: const Text('Add'),
+              ),
+            ],
+          ),
+        );
   }
 }

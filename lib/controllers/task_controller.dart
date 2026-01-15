@@ -14,8 +14,14 @@ class TaskController extends ChangeNotifier {
 
   TaskController(this.db);
 
+  int? _projectID;
+
+  set projectID(int value) => _projectID = value;
+  get projectID => _projectID;
+
   Future<void> load() async {
-    final data = await db.readAllTasks();
+    //final data = await db.readAllTasks();
+    final data = await db.readAllTasksWhereProjectID(_projectID!);
     _tasks = data.map(Task.fromMap).toList();
     notifyListeners();
   }
@@ -30,13 +36,23 @@ class TaskController extends ChangeNotifier {
       _tasks.where((t) => t.status == status).toList();
 
   Future<void> add(String title) async {
-    await db.createTask(title);
+    await db.createTask(title, _projectID!);
     await load();
+  }
+
+  Future<void> addProject(String name) async {
+    await db.createProject(name);
+    await loadProjects();
   }
 
   Future<void> delete(int id) async {
     await db.deleteTask(id);
     await load();
+  }
+
+  Future<void> deleteProject(int id) async {
+    await db.deleteProject(id);
+    await loadProjects();
   }
 
   Future<void> move(int id, TaskStatus status) async {

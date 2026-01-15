@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:swift_flow/controllers/task_controller.dart';
 import 'package:swift_flow/models/task.dart';
 import 'package:swift_flow/ui/widgets/base_project_tile.dart';
 
 
 class ProjectList extends StatelessWidget {
   final Function(Project) onProjectSelected;
-  final List<Project> projects;
+  final Function(int) onProjectDeleted;
+ // List<Project> projects;
 
-  ProjectList({required this.onProjectSelected, required this.projects });
+  final TaskController controller;
+
+
+  ProjectList({
+    required this.onProjectSelected,
+    required this.onProjectDeleted,
+    required this.controller,
+   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-      itemCount: projects.length,
+      itemCount: controller.projects.length,
       itemBuilder: (context, index) => BaseProjectTile(
-        title: projects[index].name, 
-        onTap: () => onProjectSelected(projects[index]),
+        title: controller.projects[index].name, 
+        onTap: () => onProjectSelected(controller.projects[index]),
+        onDelete: ()
+          {
+            onProjectDeleted(controller.projects[index].id); 
+            controller.deleteProject(controller.projects[index].id);
+          },
         ),
     );
   }

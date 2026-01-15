@@ -18,6 +18,8 @@ class DatabaseHelper {
     final path = join(dbPath, filePath);
 
     return await openDatabase(path, version: 1, onCreate: _createDB, onOpen: (db) async {await db.execute('PRAGMA foreign_keys = ON');});
+
+   
   }
 
   Future _createDB(Database db, int version) async {
@@ -39,13 +41,20 @@ class DatabaseHelper {
         FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
         )
     ''');
-
-    createProject("Base Project");
   }
 
   Future<List<Map<String, dynamic>>> readAllTasks() async {
     final db = await instance.database;
     return await db.query('tasks');
+  }
+
+  Future<List<Map<String, dynamic>>> readAllTasksWhereProjectID(int projectID) async {
+    final db = await instance.database;
+    return db.query(
+      'tasks',
+      where: 'project_id = ?',
+      whereArgs: [projectID],
+    );
   }
 
   Future<List<Map<String, dynamic>>> readAllProjects() async {
@@ -58,15 +67,16 @@ class DatabaseHelper {
      return await db.insert('projects', {'name': title});
    }
 
-  Future<int> createTask(String title) async {
+  Future<int> createTask(String title, int projectID) async {
     final db = await instance.database;
   //  return await db.insert('tasks', {'title': title, 'status': 0});
+
 
     return await db.insert('tasks', {
       'title': title,
       'status': 0,
       'difficulty': 1,
-      'project_id': 1,
+      'project_id': projectID,
       'created_at': DateTime.now().toIso8601String() // Формат: 2026-01-10T22:30...
     });
   }
@@ -79,5 +89,11 @@ class DatabaseHelper {
   Future<int> deleteTask(int id) async {
     final db = await instance.database;
     return await db.delete('tasks', where: 'id = ?', whereArgs: [id]);
+  }
+
+
+  Future<int> deleteProject(int id) async {
+    final db = await instance.database;
+    return await db.delete('projects', where: 'id = ?', whereArgs: [id]);
   }
 }

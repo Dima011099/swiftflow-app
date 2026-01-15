@@ -5,7 +5,12 @@ import '../database_helper.dart';
 import '../models/task.dart';
 
 class ProjectScreen extends StatefulWidget {
-  const ProjectScreen({super.key});
+  final int projectID;
+
+  const ProjectScreen({
+    super.key,
+    required this.projectID,
+    });
 
   @override
   State<ProjectScreen> createState() => _ProjectScreenState();
@@ -20,8 +25,19 @@ class _ProjectScreenState extends State<ProjectScreen> {
   @override
   void initState() {
     super.initState();
-    controller = TaskController(DatabaseHelper.instance)..load();
+    controller = TaskController(DatabaseHelper.instance)
+      ..projectID = widget.projectID
+      ..load();
   }
+
+  @override
+void didUpdateWidget(covariant ProjectScreen oldWidget) {
+  super.didUpdateWidget(oldWidget);
+  if (widget.projectID != oldWidget.projectID) {
+    controller.projectID = widget.projectID;
+    controller.load(); // Перезагружаем данные при смене ID
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +142,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
         onPressed: () => showDialog(
           context: context,
           builder: (_) => AlertDialog(
-            title: const Text('Новая задача'),
+            title: const Text('New Task'),
             content: TextField(controller: input, autofocus: true),
             actions: [
               TextButton(onPressed: Navigator.of(context).pop, child: const Text('Отмена')),
@@ -136,7 +152,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   input.clear();
                   Navigator.pop(context);
                 },
-                child: const Text('Добавить'),
+                child: const Text('Add'),
               ),
             ],
           ),

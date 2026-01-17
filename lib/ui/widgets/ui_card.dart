@@ -5,7 +5,9 @@ class TaskCardView extends StatelessWidget {
   final Task task;
   final VoidCallback onDelete;
 
-  const TaskCardView({
+    final TextEditingController input = TextEditingController();
+
+  TaskCardView({
     super.key,
     required this.task,
     required this.onDelete,
@@ -39,10 +41,47 @@ class TaskCardView extends StatelessWidget {
               const SizedBox(width: 12),
               _priority(task.priority),
               const Spacer(),
-              IconButton(
-                icon: const Icon(Icons.delete, size: 20, color: Color.from(red: 0.3, blue: 0.1, green: 0.15, alpha: .5)),
-                onPressed: onDelete,
-              ),
+
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert, size: 20, color: Color.from(red: 0.3, blue: 0.1, green: 0.15, alpha: .5)), // Иконка фильтра
+                  onSelected: (String result) {
+                    switch(result){
+                      case 'edit':
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                          title: const Text('Edit Task'),
+                          content: TextField(controller: input, autofocus: true),
+                          actions: [
+                            TextButton(onPressed: Navigator.of(context).pop, child: const Text('Отмена')),
+                            ElevatedButton(
+                            onPressed: () {
+                             // controller.add(input.text);
+                             // input.clear();
+                              Navigator.pop(context);
+                            },
+                          child: const Text('Save'),
+                        ),
+                        ],
+                      ),
+                  );
+                      break;
+                      case 'delete':
+                        onDelete();
+                      break;
+                    }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  const PopupMenuItem<String>(
+                  value: 'edit',
+                  child: Text('Edit'),
+                ),
+                  const PopupMenuItem<String>(
+                    value: 'delete',
+                    child: Text('Delete'),
+                  ),
+              ],
+            ),
             ],
           ),
 

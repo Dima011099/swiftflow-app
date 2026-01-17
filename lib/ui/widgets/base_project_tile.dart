@@ -5,7 +5,10 @@ class BaseProjectTile extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onDelete;
 
-  const BaseProjectTile({
+    final TextEditingController input = TextEditingController();
+  
+
+  BaseProjectTile({
     super.key,
     required this.title,
     this.onTap,
@@ -56,12 +59,66 @@ class BaseProjectTile extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(onPressed: onDelete,
+             /* IconButton(onPressed: onDelete,
               icon: Icon(
                 Icons.delete_outline,
                 color: theme.iconTheme.color?.withOpacity(0.5),
                 size: 20,
-              ),),
+              ),),*/
+                          PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert, size: 20, color: Color.from(red: 0.3, blue: 0.1, green: 0.15, alpha: .5)), // Иконка фильтра
+                  onSelected: (String result) {
+                    switch(result){
+                      case 'edit':
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                          title: const Text('Edit Task'),
+                          content: TextField(controller: input, autofocus: true),
+                          actions: [
+                            TextButton(onPressed: Navigator.of(context).pop, child: const Text('Отмена')),
+                            ElevatedButton(
+                            onPressed: () {
+                             // controller.add(input.text);
+                             // input.clear();
+                              Navigator.pop(context);
+                            },
+                          child: const Text('Save'),
+                        ),
+                        ],
+                      ),
+                  );
+                      break;
+                      case 'delete':
+                        onDelete!();
+                      break;
+                      case 'export':
+
+                      break;
+                      case 'sync':
+
+                      break;
+                    }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  const PopupMenuItem<String>(
+                  value: 'edit',
+                  child: Text('Edit'),
+                ),
+                  const PopupMenuItem<String>(
+                    value: 'delete',
+                    child: Text('Delete'),
+                  ),
+                   const PopupMenuItem<String>(
+                    value: 'sync',
+                    child: Text('Sync'),
+                  ),
+                  const PopupMenuItem(
+                    value: 'export',
+                    child: Text('Expot'),
+                  ),
+              ],
+            ),
             ],
           ),
         ),

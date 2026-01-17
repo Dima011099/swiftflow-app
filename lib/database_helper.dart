@@ -26,7 +26,9 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE projects (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT NOT NULL
+          name TEXT NOT NULL,
+          created_at TEXT NOT NULL,
+          update_at TEXT NOT NULL
       )
     ''');
 
@@ -37,9 +39,22 @@ class DatabaseHelper {
         title TEXT NOT NULL,
         status INTEGER NOT NULL, -- 0: Задачи, 1: В работе, 2: Результат
         difficulty INTEGER NOT NULL DEFAULT 1, -- Сложность (1-3)
-        created_at TEXT NOT NULL,            -- Дата создания
+        created_at TEXT NOT NULL,  
+        update_at TEXT NOT NULL,          -- Дата создания
         FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
         )
+    ''');
+
+
+    await db.execute('''
+          CREATE TABLE sync_tasks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            project_id INTEGER NOT NULL,
+            sync_token TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            last_used_at DATETIME,
+            UNIQUE(project_id) 
+          )
     ''');
   }
 
@@ -64,7 +79,11 @@ class DatabaseHelper {
 
    Future<int> createProject (String title) async {
      final db = await instance.database;
-     return await db.insert('projects', {'name': title});
+     return await db.insert('projects', {
+      'name': title,
+      'created_at': DateTime.now().toIso8601String(), 
+      'update_at': DateTime.now().toIso8601String(), 
+      });
    }
 
   Future<int> createTask(String title, int projectID) async {
@@ -77,7 +96,8 @@ class DatabaseHelper {
       'status': 0,
       'difficulty': 1,
       'project_id': projectID,
-      'created_at': DateTime.now().toIso8601String() // Формат: 2026-01-10T22:30...
+      'created_at': DateTime.now().toIso8601String(), 
+      'update_at': DateTime.now().toIso8601String(), // Формат: 2026-01-10T22:30...
     });
   }
 

@@ -40,16 +40,22 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
         backgroundColor: Colors.white,
          actions: [
     IconButton(
-    icon: const Icon(Icons.add), 
-    onPressed: () {
-      _addProject();
-    },
-  ),
-  IconButton(
-    icon: const Icon(Icons.person_sharp), 
-    onPressed: () {
-    },
-  ),
+      icon: const Icon(Icons.add), 
+      onPressed: () {
+        _addProject();
+      },
+    ),
+      IconButton(
+      icon: const Icon(Icons.file_upload), 
+      onPressed: () {
+        controller.importAsNewProject('Import Project');
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.person_sharp), 
+      onPressed: () {
+      },
+    ),
    IconButton(
     icon: const Icon(Icons.settings),
     onPressed: () {
@@ -73,7 +79,9 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
                     if (_selectedProject?.id == deletedId) {
                       setState(() => _selectedProject = null);
                     }
-                  },                
+                  },
+                  onProjectUpdate: controller.updateProject,
+                  onExport: controller.exportJson,               
                   ),
                 ),
                 const VerticalDivider(width: 1),
@@ -100,6 +108,8 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
                   )  
                 );
               },
+              onProjectUpdate: controller.updateProject,
+              onExport: controller.exportJson,
             );
           }
         },

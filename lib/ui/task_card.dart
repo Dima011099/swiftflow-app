@@ -6,12 +6,14 @@ class TaskCard extends StatelessWidget {
   final Task task;
   final bool draggable;
   final VoidCallback onDelete;
+  final Function(int, String) onUpdate;
 
  const TaskCard({
   super.key,
   required this.task,
   required this.draggable,
   required this.onDelete,
+  required this.onUpdate
 });
 
   @override
@@ -20,6 +22,7 @@ class TaskCard extends StatelessWidget {
     final card = TaskCardView(
       task: task,
       onDelete: onDelete,
+      onUpdate: onUpdate,
     );
 
     if (!draggable) return card;

@@ -9,6 +9,7 @@ class TaskList extends StatelessWidget {
   final bool draggable;
   final void Function(int, TaskStatus) onMove;
   final void Function(int) onDelete;
+  final Function(int, String) onUpdate;
 
   const TaskList({
     super.key,
@@ -16,6 +17,7 @@ class TaskList extends StatelessWidget {
     required this.draggable,
     required this.onMove,
     required this.onDelete,
+    required this.onUpdate,
   });
 
   @override
@@ -29,8 +31,8 @@ class TaskList extends StatelessWidget {
       itemCount: tasks.length,
       itemBuilder: (_, i) {
         return draggable
-            ? TaskCard(task: tasks[i], draggable: draggable, onDelete: () =>  onDelete(tasks[i].id))
-            : SwipeCard(task: tasks[i], onMove: onMove, onDelete: onDelete);
+            ? TaskCard(task: tasks[i], draggable: draggable, onDelete: () =>  onDelete(tasks[i].id), onUpdate: onUpdate,)
+            : SwipeCard(task: tasks[i], onMove: onMove, onDelete: onDelete, onUpdate: onUpdate,);
       },
     );
   }

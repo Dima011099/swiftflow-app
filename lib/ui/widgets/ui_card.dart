@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:swift_flow/models/task.dart';
 
 class TaskCardView extends StatelessWidget {
   final Task task;
   final VoidCallback onDelete;
+  //final VoidCallback onUpdate;
+  final Function(int, String) onUpdate;
 
-    final TextEditingController input = TextEditingController();
+  final TextEditingController input = TextEditingController();
 
   TaskCardView({
     super.key,
     required this.task,
     required this.onDelete,
+    required this.onUpdate,
   });
 
   @override
@@ -47,6 +51,7 @@ class TaskCardView extends StatelessWidget {
                   onSelected: (String result) {
                     switch(result){
                       case 'edit':
+                        input.text = task.title;
                         showDialog(
                           context: context,
                           builder: (_) => AlertDialog(
@@ -56,9 +61,9 @@ class TaskCardView extends StatelessWidget {
                             TextButton(onPressed: Navigator.of(context).pop, child: const Text('Отмена')),
                             ElevatedButton(
                             onPressed: () {
-                             // controller.add(input.text);
-                             // input.clear();
-                              Navigator.pop(context);
+                            onUpdate(task.id, input.text);       
+                            input.clear();
+                            Navigator.pop(context);
                             },
                           child: const Text('Save'),
                         ),

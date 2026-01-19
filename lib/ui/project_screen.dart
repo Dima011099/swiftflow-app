@@ -62,6 +62,7 @@ void didUpdateWidget(covariant ProjectScreen oldWidget) {
                 tasks: controller.byStatus(status),
                 onMove: controller.move,
                 onDelete: controller.delete,
+                onUpdate: controller.updateTask,
                 draggable: true,
               ),
             );
@@ -119,6 +120,7 @@ void didUpdateWidget(covariant ProjectScreen oldWidget) {
               tasks: controller.byStatus(status),
               onMove: controller.move,
               onDelete: controller.delete,
+              onUpdate: controller.updateTask,
               draggable: false,
             );
           }).toList(),

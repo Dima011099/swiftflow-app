@@ -100,6 +100,25 @@ class DatabaseHelper {
       'update_at': DateTime.now().toIso8601String(), // Формат: 2026-01-10T22:30...
     });
   }
+   Future<List<Map<String, dynamic>>> readTaskWhereID(int id) async {
+      final db = await instance.database;
+      return db.query(
+        'tasks',
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+   }
+
+  Future<int> updateTaskTitle(int id, String title) async {
+    final db = await instance.database;
+    return await db.update('tasks', {'title': title}, where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> updateProjectTitle(int id, String title) async {
+    final db = await instance.database;
+    return await db.update('projects', {'name': title}, where: 'id = ?', whereArgs: [id]);
+  }
+
 
   Future<int> updateTaskStatus(int id, int status) async {
     final db = await instance.database;
@@ -116,4 +135,25 @@ class DatabaseHelper {
     final db = await instance.database;
     return await db.delete('projects', where: 'id = ?', whereArgs: [id]);
   }
+
+  Future<int> insertTask(Map<String, dynamic> taskData, {Transaction? txn}) async {
+  // 1. Используем переданную транзакцию или получаем обычный экземпляр БД
+  final dbClient = txn ?? await instance.database;
+
+  // 2. Создаем копию данных, чтобы добавить поля по умолчанию, если их нет
+  final Map<String, dynamic> finalTask = Map<String, dynamic>.from(taskData);
+
+  // Добавляем значения по умолчанию только если они не переданы (например, из JSON)
+  finalTask['status'] ??= 0;
+  finalTask['difficulty'] ??= 1;
+  finalTask['created_at'] ??= DateTime.now().toIso8601String();
+  finalTask['update_at'] = DateTime.now().toIso8601String(); // Обновляем всегда
+
+  // 3. Выполняем вставку
+  return await dbClient.insert(
+    'tasks',
+    finalTask,
+    conflictAlgorithm: ConflictAlgorithm.replace,
+  );
+}
 }

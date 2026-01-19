@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
 class BaseProjectTile extends StatelessWidget {
+  final int projectId;
   final String title;
+
   final VoidCallback? onTap;
   final VoidCallback? onDelete;
-
-    final TextEditingController input = TextEditingController();
+  final Function(int, String) onUpdate;
+  final Function(int) onExport; 
+  
+  final TextEditingController input = TextEditingController();
   
 
   BaseProjectTile({
@@ -13,6 +17,9 @@ class BaseProjectTile extends StatelessWidget {
     required this.title,
     this.onTap,
     this.onDelete,
+    required this.onUpdate,
+    required this.onExport,
+    required this.projectId
   });
 
   @override
@@ -70,6 +77,7 @@ class BaseProjectTile extends StatelessWidget {
                   onSelected: (String result) {
                     switch(result){
                       case 'edit':
+                        input.text = title;
                         showDialog(
                           context: context,
                           builder: (_) => AlertDialog(
@@ -80,7 +88,8 @@ class BaseProjectTile extends StatelessWidget {
                             ElevatedButton(
                             onPressed: () {
                              // controller.add(input.text);
-                             // input.clear();
+                              onUpdate(projectId, input.text);
+                              input.clear();
                               Navigator.pop(context);
                             },
                           child: const Text('Save'),
@@ -93,7 +102,7 @@ class BaseProjectTile extends StatelessWidget {
                         onDelete!();
                       break;
                       case 'export':
-
+                        onExport(projectId);
                       break;
                       case 'sync':
 

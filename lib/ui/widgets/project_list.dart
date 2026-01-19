@@ -7,6 +7,10 @@ import 'package:swift_flow/ui/widgets/base_project_tile.dart';
 class ProjectList extends StatelessWidget {
   final Function(Project) onProjectSelected;
   final Function(int) onProjectDeleted;
+  final Function(int, String) onProjectUpdate;
+  final Function(int) onExport;
+
+
  // List<Project> projects;
 
   final TaskController controller;
@@ -16,6 +20,8 @@ class ProjectList extends StatelessWidget {
     required this.onProjectSelected,
     required this.onProjectDeleted,
     required this.controller,
+    required this.onProjectUpdate,
+    required this.onExport,
    });
 
   @override
@@ -31,6 +37,9 @@ class ProjectList extends StatelessWidget {
             onProjectDeleted(controller.projects[index].id); 
             controller.deleteProject(controller.projects[index].id);
           },
+        onUpdate: onProjectUpdate,
+        onExport: onExport,
+        projectId: controller.projects[index].id,
         ),
     );
   }

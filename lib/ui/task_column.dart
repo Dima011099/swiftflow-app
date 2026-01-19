@@ -7,6 +7,7 @@ class TaskColumn extends StatelessWidget {
   final List<Task> tasks;
   final void Function(int, TaskStatus) onMove;
   final void Function(int) onDelete;
+  final Function(int, String) onUpdate;
   final bool draggable;
 
   const TaskColumn({
@@ -15,6 +16,7 @@ class TaskColumn extends StatelessWidget {
     required this.tasks,
     required this.onMove,
     required this.onDelete,
+    required this.onUpdate,
     required this.draggable,
   });
 
@@ -84,6 +86,7 @@ if(!isMobileLayout(context)) Container(
             draggable: draggable,
             onMove: onMove,
             onDelete: onDelete,
+            onUpdate: onUpdate,
           ),
         );
       },

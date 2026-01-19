@@ -6,12 +6,14 @@ class SwipeCard extends StatelessWidget {
   final Task task;
   final void Function(int, TaskStatus) onMove;
   final void Function(int) onDelete;
+  final Function(int, String) onUpdate;
 
   const SwipeCard({
     super.key,
     required this.task,
     required this.onMove,
     required this.onDelete,
+    required this.onUpdate,
   });
 
   @override
@@ -19,6 +21,7 @@ class SwipeCard extends StatelessWidget {
     final card = TaskCardView(
       task: task,
       onDelete: () => onDelete(task.id),
+      onUpdate: onUpdate,
     );
 
 

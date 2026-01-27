@@ -1,66 +1,88 @@
-# Codenameswiftflow 🚀
+# SwiftFlow — Open-Source Minimalist Task & Project Manager (Flutter)
 
-[English](#english) | [Русский](#русский)
+SwiftFlow is an **open-source task and project management app** built with **Flutter**.  
+It is designed for developers and professionals who need a **fast, distraction-free productivity tool** without the complexity of traditional project management software.
 
----
+The app focuses on **clarity, speed, and low cognitive load**, making it suitable for managing everything from simple daily tasks to large, structured projects.
 
-## English
-
-> **Warning:** This is an **Early Alpha** release. The application is in active development.
-
-**Codenameswiftflow** is a modern project manager built with Flutter. We have reimagined the planning process by stripping away redundant features in favor of a clean interface and intuitive control.
-
-The app is designed for those who value speed and want to eliminate cognitive load while managing everything from micro-tasks to large-scale professional projects.
-
-### 🎯 Project Philosophy
-Most management tools are either too primitive for serious work or become a chaotic mess of features where the essence of the task gets lost.
-
-**Codenameswiftflow solves this through:**
-*   **Visual Clarity:** No unnecessary buttons or cluttered menus. Just your tasks.
-*   **Scalability:** An architecture that allows you to manage major projects while maintaining ease of use.
-*   **Tactile Interface:** Emphasis on smooth gestures and seamless transitions (Flow).
-*   **Focus on Results:** Tools designed to help you finish tasks, not waste time configuring the app itself.
-
-### 🛠 Tech Stack
-The project is implemented in **Dart** using the **Flutter** framework, ensuring:
-*   High performance (60/120 FPS).
-*   A single codebase for true cross-platform support.
-*   Native user experience across all devices.
-
-### 🚀 Getting Started
-1. **Clone the repo:** `git clone github.com`
-2. **Install dependencies:** `flutter pub get`
-3. **Run the app:** `flutter run`
+> ⚠️ **Status:** Early Alpha — active development
 
 ---
 
-## Русский
+## What Is SwiftFlow?
 
-> **Внимание:** Это версия **Early Alpha**. Приложение находится в стадии активной разработки.
+SwiftFlow is a **minimalist task manager and project management application** that removes unnecessary features commonly found in tools like Notion, Jira, or Trello.
 
-**Codenameswiftflow** — это современный менеджер проектов, созданный на Flutter. Мы переосмыслили подход к планированию, отказавшись от избыточного функционала в пользу чистого интерфейса и интуитивного управления.
-
-Приложение спроектировано для тех, кому важна скорость работы и отсутствие когнитивной нагрузки при управлении как микро-задачами, так и масштабными проектами.
-
-### 🎯 Философия проекта
-Большинство инструментов управления либо слишком примитивны для серьезной работы, либо превращаются в хаотичное нагромождение функций, в которых теряется суть задачи.
-
-**Codenameswiftflow решает эти проблемы через:**
-*   **Визуальную чистоту:** Никаких лишних кнопок и перегруженных меню. Только ваши задачи.
-*   **Масштабируемость:** Архитектура позволяет вести крупный проект, сохраняя легкость управления.
-*   **Тактильный интерфейс:** Упор на удобные жесты и плавные переходы (Flow).
-*   **Фокус на главном:** Инструментарий помогает доводить дела до конца, а не тратить время на настройку самого приложения.
-
-### 🛠 Технологический стек
-Проект реализован на **Dart** с использованием фреймворка **Flutter**, что обеспечивает:
-*   Высокую производительность (60/120 FPS).
-*   Единую кодовую базу для кроссплатформенности.
-*   Нативный пользовательский опыт на всех устройствах.
-
-### 🚀 Начало работы
-1. **Клонируйте репозиторий:** `git clone github.com`
-2. **Установите зависимости:** `flutter pub get`
-3. **Запустите приложение:** `flutter run`
+Instead of complex configuration and overloaded interfaces, SwiftFlow provides:
+- clear task structures
+- smooth navigation
+- a focused workflow that helps users finish work, not manage software
 
 ---
-*Codenameswiftflow — Manage projects at the speed of thought / Управляйте проектами со скоростью мысли.*
+
+## Who Is SwiftFlow For?
+
+SwiftFlow is designed for:
+
+- **Developers** who want a lightweight task manager
+- **Freelancers** managing multiple projects without heavy PM tools
+- **Productivity-focused users** overwhelmed by feature-heavy apps
+- **Small teams or solo professionals** who value simplicity and speed
+
+---
+
+## Key Features
+
+- **Minimalist Interface**  
+  Clean UI with no visual clutter or redundant controls
+
+- **Project Scalability**  
+  Suitable for both small task lists and complex multi-level projects
+
+- **Fast & Responsive UX**  
+  Optimized for smooth interactions and low latency
+
+- **Cross-Platform Support**  
+  Single Flutter codebase for multiple platforms
+
+- **Focus-Oriented Workflow**  
+  Designed to reduce cognitive overload and decision fatigue
+
+---
+
+## Philosophy
+
+Most productivity and project management apps suffer from one of two problems:
+1. They are too simple to scale
+2. They become bloated and hard to use
+
+SwiftFlow follows a different approach:
+> **Fewer features, better execution.**
+
+Every part of the interface exists to support task completion, not configuration.
+
+---
+
+## Technology Stack
+
+SwiftFlow is developed as an **open-source Flutter application**, using:
+
+- **Dart**
+- **Flutter Framework**
+- Reactive UI principles
+- Performance-oriented architecture
+
+This allows:
+- high performance (60/120 FPS where supported)
+- true cross-platform development
+- native-like user experience
+
+---
+
+## Getting Started
+
+```bash
+git clone https://github.com/Dima011099/swiftflow-app.git
+cd swiftflow-app
+flutter pub get
+flutter run
